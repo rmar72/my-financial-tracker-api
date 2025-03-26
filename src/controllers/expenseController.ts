@@ -8,7 +8,7 @@ export const ExpenseController = {
             const expense = await ExpenseService.createExpense(amount, new Date(date), categoryId, paymentId, userId, description);
             res.status(201).json(expense);
         } catch (error) {
-            res.status(500).json({ error: "Failed to create expense" });
+            res.status(500).json({ error: `Failed to create expense. Error ${error}` });
         }
     },
 
