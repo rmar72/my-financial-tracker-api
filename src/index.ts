@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import expenseRoutes from "./routes/expenseRoutes";
 import incomeRoutes from "./routes/incomeRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
@@ -6,6 +7,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 const app = express();
 const PORT = process.env.PORT || 5000
 
+app.use(cors());
 app.use(express.json());
 
 // Routes
