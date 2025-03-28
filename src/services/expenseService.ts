@@ -1,4 +1,5 @@
 import { ExpenseRepository } from "../repositories/expenseRepository";
+import { ExpenseInput } from '../types/ExpenseInput'
 
 export const ExpenseService = {
     async createExpense(amount: number, date: Date, categoryId: number, paymentId: number, userId?: number, description?: string) {
@@ -15,5 +16,8 @@ export const ExpenseService = {
 
     async deleteExpense(id: number) {
         return ExpenseRepository.deleteExpense(id);
+    },
+    async updateExpense(id: number, data: Partial<ExpenseInput>) {
+        return ExpenseRepository.updateExpense(id, data);
     }
 };

@@ -1,4 +1,5 @@
 import prisma from "../config/prisma";
+import { ExpenseInput } from '../types/ExpenseInput'
 
 export const ExpenseRepository = {
     async createExpense(amount: number, date: Date, categoryId: number, paymentId: number, userId?: number, description?: string) {
@@ -19,5 +20,12 @@ export const ExpenseRepository = {
 
     async deleteExpense(id: number) {
         return prisma.expense.delete({ where: { id } });
+    },
+
+    async updateExpense(id: number, data: Partial<ExpenseInput>) {
+        return prisma.expense.update({
+          where: { id },
+          data
+        });
     }
 };

@@ -29,5 +29,26 @@ export const ExpenseController = {
         } catch (error) {
             res.status(500).json({ error: "Failed to delete expense" });
         }
+    },
+
+    async update(req: Request, res: Response) {
+        const id = parseInt(req.params.id);
+        const { amount, date, categoryId, paymentId, userId, description } = req.body;
+    
+        try {
+          const updated = await ExpenseService.updateExpense(id, {
+            ...(amount !== undefined && { amount }),
+            ...(date && { date }),
+            ...(categoryId && { categoryId }),
+            ...(paymentId && { paymentId }),
+            ...(userId !== undefined && { userId }),
+            ...(description !== undefined && { description })
+          });
+    
+          res.json(updated);
+        } catch (err) {
+          console.error('Failed to update expense', err);
+          res.status(500).json({ error: 'Failed to update expense' });
+        }
     }
 };
