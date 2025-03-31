@@ -24,8 +24,8 @@ export const CategoryController = {
     async updateCategory(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const { name } = req.body;
-            const category = await CategoryService.updateCategory(Number(id), name);
+            const { name, budgetAmount } = req.body;
+            const category = await CategoryService.updateCategory(Number(id), name, budgetAmount);
             res.json(category);
         } catch (error) {
             res.status(500).json({ error: "Failed to update category" });

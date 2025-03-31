@@ -9,10 +9,10 @@ export const CategoryRepository = {
         return prisma.category.findMany();
     },
 
-    async updateCategory(id: number, name: string) {
+    async updateCategory(id: number, name: string, budgetAmount?: number) {
         return prisma.category.update({
             where: { id },
-            data: { name }
+            data: { name, budgetAmount }
         });
     },
 

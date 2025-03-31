@@ -9,8 +9,8 @@ export const CategoryService = {
         return CategoryRepository.getAllCategories();
     },
 
-    async updateCategory(id: number, name: string) {
-        return CategoryRepository.updateCategory(id, name);
+    async updateCategory(id: number, name: string, budgetAmount?: number) {
+        return CategoryRepository.updateCategory(id, name, budgetAmount);
     },
 
     async deleteCategory(id: number) {
