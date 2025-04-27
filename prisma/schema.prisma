@@ -50,8 +50,21 @@ model Expense {
   user       User?    @relation(fields: [userId], references: [id])
   userId     Int?
   description String?
+  isShared   Boolean  @default(false)
+  sharedContributions SharedContribution[]
 
   @@map("expenses")
+}
+
+model SharedContribution {
+  id          Int       @id @default(autoincrement())
+  amount      Decimal
+  date        DateTime
+  contributor String
+  method      String
+  expenseId   Int
+
+  expense     Expense   @relation(fields: [expenseId], references: [id])
 }
 
 model Income {
