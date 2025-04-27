@@ -10,12 +10,31 @@ export const ExpenseRepository = {
 
     async getAllExpenses() {
         return prisma.expense.findMany({
-            include: { category: true, payment: true },
+            select: {
+                id: true,
+                amount: true,
+                date: true,
+                description: true,
+                isShared: true,
+                categoryId: true,
+                paymentId: true,
+                userId: true,
+                category: true,
+                payment: true,
+                sharedContributions: true
+            }
         });
     },
 
     async getExpenseById(id: number) {
-        return prisma.expense.findUnique({ where: { id } });
+        return prisma.expense.findUnique({
+          where: { id },
+          include: {
+            category: true,
+            payment: true,
+            sharedContributions: true
+          }
+        });
     },
 
     async deleteExpense(id: number) {

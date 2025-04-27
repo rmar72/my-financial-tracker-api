@@ -7,11 +7,46 @@ export const ExpenseService = {
     },
 
     async getAllExpenses() {
-        return ExpenseRepository.getAllExpenses();
-    },
+        const expenses = await ExpenseRepository.getAllExpenses();
+        
+        return expenses.map(exp => {
+            if (exp.isShared && exp.sharedContributions.length > 0) {
+                const totalContributions = exp.sharedContributions.reduce((sum, c) => sum + Number(c.amount), 0);
+                const netAmount = Number(exp.amount) - totalContributions;
+                return {
+                    ...exp,
+                    netAmount
+                };
+            }
+        
+            // If it's not shared or no contributions yet, just return expense as-is (no netAmount)
+            return {
+            ...exp,
+            netAmount: undefined
+            };
+        });
+    },        
 
     async getExpenseById(id: number) {
-        return ExpenseRepository.getExpenseById(id);
+        const exp = await ExpenseRepository.getExpenseById(id);
+    
+        if (!exp) {
+            return null;
+        }
+    
+        if (exp.isShared && exp.sharedContributions.length > 0) {
+            const totalContributions = exp.sharedContributions.reduce((sum, c) => sum + Number(c.amount), 0);
+            const netAmount = Number(exp.amount) - totalContributions;
+            return {
+                ...exp,
+                netAmount
+            };
+        }
+    
+        return {
+            ...exp,
+            netAmount: undefined
+        };
     },
 
     async deleteExpense(id: number) {
