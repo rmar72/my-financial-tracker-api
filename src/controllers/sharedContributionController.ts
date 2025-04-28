@@ -4,14 +4,17 @@ import { SharedContributionService } from "../services/sharedContributionService
 export const SharedContributionController = {
   async create(req: Request, res: Response) {
     try {
-      const { amount, date, contributor, method, expenseId } = req.body;
+      const { expenseId } = req.params;
+      const { amount, date, contributor, method } = req.body;
+
       const contribution = await SharedContributionService.create({
         amount,
         date: new Date(date),
         contributor,
         method,
-        expenseId
+        expenseId: Number(expenseId)
       });
+
       res.status(201).json(contribution);
     } catch (error) {
       res.status(500).json({ error: `Failed to add contribution: ${error}` });

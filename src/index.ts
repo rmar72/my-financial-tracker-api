@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use("/expenses", expenseRoutes);
-app.use("/shared-contributions", sharedContributionRoutes);
+app.use("/", sharedContributionRoutes);
 app.use("/income", incomeRoutes);
 app.use("/categories", categoryRoutes);
 

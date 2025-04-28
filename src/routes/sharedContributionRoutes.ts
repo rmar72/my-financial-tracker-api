@@ -3,9 +3,9 @@ import { SharedContributionController } from "../controllers/sharedContributionC
 
 const router = express.Router();
 
-router.post("/", SharedContributionController.create);
-router.get("/:expenseId", SharedContributionController.getByExpense);
-router.put("/:id", SharedContributionController.update);
-router.delete("/:id", SharedContributionController.delete);
+router.post("/expenses/:expenseId/shared-contributions", SharedContributionController.create);
+router.get("/expenses/:expenseId/shared-contributions", SharedContributionController.getByExpense);
+router.put("/shared-contributions/:id", SharedContributionController.update);
+router.delete("/shared-contributions/:id", SharedContributionController.delete);
 
 export default router;
