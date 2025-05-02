@@ -33,7 +33,7 @@ export const ExpenseController = {
 
     async update(req: Request, res: Response) {
         const id = parseInt(req.params.id);
-        const { amount, date, categoryId, paymentId, userId, description } = req.body;
+        const { amount, date, categoryId, paymentId, userId, description, isShared } = req.body;
     
         try {
           const updated = await ExpenseService.updateExpense(id, {
@@ -42,7 +42,8 @@ export const ExpenseController = {
             ...(categoryId && { categoryId }),
             ...(paymentId && { paymentId }),
             ...(userId !== undefined && { userId }),
-            ...(description !== undefined && { description })
+            ...(description !== undefined && { description }),
+            ...(isShared !== undefined && { isShared })
           });
     
           res.json(updated);

@@ -5,4 +5,5 @@ export type ExpenseInput = {
     paymentId: number;
     userId?: number;
     description?: string;
+    isShared?: boolean;
 };
